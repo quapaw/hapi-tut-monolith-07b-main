@@ -30,7 +30,7 @@ I have broken this down into the following steps
 
 
 
-#HAPI Tutorial - Monolith - 7b - main
+# HAPI Tutorial - Monolith - 7b - main
 This step updates the main project configuration files.
 We will utilize two different libraries to help us externalize configuration between each environment
 
@@ -47,8 +47,9 @@ We are going to utilize [confidence](https://github.com/hapijs/confidence) to al
   
 * Create a single manifest.json
     * Move items out of ManifestBuild.js into manifest.json
-      You manifest.json should look like
-```
+        You manifest.json should look like
+
+        ```
         {
           "server": {
             "app": {
