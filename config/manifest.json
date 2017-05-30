@@ -1,0 +1,118 @@
+{
+  "server": {
+    "app": {
+      "slogan": "We push the web forward"
+    }
+  },
+  "connections": [
+    {
+      "$filter": "PROTOCOL",
+      "https": {
+        "port": 3443,
+        "labels": ["api"],
+        "tls": {
+          "key": "./config/server.key",
+          "cert": "./config/server.crt"
+        }
+      },
+      "$default": {
+        "port":   3000,
+        "labels": ["api"]
+
+      }
+    }
+  ],
+  "registrations": [
+    {
+      "plugin": {
+        "register": "hapi-mongodb",
+        "options": {
+          "url": "mongodb://localhost:27017/test",
+          "settings": {
+            "poolSize": 10
+          },
+          "decorate": true
+        }
+      }
+    },
+    {
+      "plugin": {
+        "register": "customers"
+      }
+    },
+    {
+      "plugin": {
+        "register": "products"
+      }
+    },
+    {
+      "plugin": {
+        "register": "vision"
+      }
+    },
+    {
+      "plugin": {
+        "register": "inert"
+      }
+    },
+    {
+      "plugin": {
+        "register": "hapi-swagger"
+      }
+    },
+    {
+      "plugin": {
+        "register": "blipp"
+      }
+    },
+    {
+      "plugin": {
+        "register": "good",
+        "options": {
+          "ops": {
+            "interval": 3000
+          },
+          "reporters": {
+            "myConsoleReporter": [
+              {
+                "module": "good-squeeze",
+                "name": "Squeeze",
+                "args": [
+                  {
+                    "log": "*",
+                    "response": "*"
+                  }
+                ]
+              },
+              {
+                "module": "good-console"
+              },
+              "stdout"
+            ],
+            "myFileReporter": [
+              {
+                "module": "good-squeeze",
+                "name": "Squeeze",
+                "args": [
+                  {
+                    "ops": "*"
+                  }
+                ]
+              },
+              {
+                "module": "good-squeeze",
+                "name": "SafeJson"
+              },
+              {
+                "module": "good-file",
+                "args": [
+                  "./test/fixtures/awesome_log"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
